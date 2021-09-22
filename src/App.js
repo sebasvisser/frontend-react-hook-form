@@ -14,22 +14,40 @@ export default function App() {
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
-            <input type="text" placeholder="Voornaam" {...register("Voornaam", {required: true})} />
-            <input type="text" placeholder="Achternaam" {...register("Achternaam", {required: true})} />
-            <input type="number" placeholder="Leeftijd" {...register("Leeftijd", {required: true, min: 18})} />
-            <input type="text" placeholder="Postcode" {...register("Postcode", {required: true, maxLength: 6, pattern: /[0-9]{4}[a-z-A-Z]{2}/i})} />
-            <select {...register("Bezorgfrequentie", { required: true })}>
+            <input type="text" placeholder="Voornaam"
+                   {...register("voornaam",
+                       {required: true})}
+            />
+            <input type="text" placeholder="Achternaam"
+                   {...register("achternaam",
+                       {required: true})}
+            />
+            <input type="number" placeholder="Leeftijd"
+                   {...register("leeftijd",
+                       {required: true,
+                           min: {
+                               value: 18,
+                               message: "Er mogen maximaal 50 karakters gebruikt worden",
+                           },
+                           })}
+            />
+            {errors.leeftijd && <p>{errors.leeftijd.message}</p>}
+
+            <input type="text" placeholder="Postcode"
+                   {...register("postcode", {required: true, maxLength: 6, pattern: /[0-9]{4}[a-z-A-Z]{2}/i})}
+            />
+            <select {...register("bezorgfrequentie", { required: true })}>
                 <option value="Iedere week">Iedere week</option>
                 <option value="Om de week">Om de week</option>
                 <option value="Iedere maand">Iedere maand</option>
                 <option value="Anders">Anders</option>
 
             </select>
-            { chosenFreq === 'Anders' && (
-            <input type="text" placeholder="Andere frequentie" {...register("Andere frequentie", {})} />
+            { chosenFreq === 'anders' && (
+            <input type="text" placeholder="Andere frequentie" {...register("andere frequentie", {})} />
             )}
-            <textarea {...register("Opmerkingen", {})} />
-            <input type="checkbox" placeholder="Akkoord?" {...register("Akkoord?", {required: true})} />
+            <textarea {...register("opmerkingen", {})} />
+            <input type="checkbox" placeholder="Akkoord?" {...register("akkoord?", {required: true})} />
 
             <input type="submit" />
         </form>

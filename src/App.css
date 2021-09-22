@@ -13,3 +13,7 @@ form {
     align-items: center;
     gap: 25px;
 }
+
+p {
+    color: red;
+}

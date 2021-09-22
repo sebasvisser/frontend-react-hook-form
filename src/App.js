@@ -3,9 +3,14 @@ import { useForm } from 'react-hook-form';
 import './App.css';
 
 export default function App() {
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const onSubmit = data => console.log(data);
+    const chosenFreq = watch('Bezorgfrequentie');
+
+
     console.log(errors);
+
+
 
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -15,10 +20,14 @@ export default function App() {
             <input type="text" placeholder="Postcode" {...register("Postcode", {required: true, maxLength: 6, pattern: /[0-9]{4}[a-z-A-Z]{2}/i})} />
             <select {...register("Bezorgfrequentie", { required: true })}>
                 <option value="Iedere week">Iedere week</option>
-                <option value=" Om de week"> Om de week</option>
-                <option value=" Iedere maand, Anders"> Iedere maand, Anders</option>
+                <option value="Om de week">Om de week</option>
+                <option value="Iedere maand">Iedere maand</option>
+                <option value="Anders">Anders</option>
+
             </select>
+            { chosenFreq === 'Anders' && (
             <input type="text" placeholder="Andere frequentie" {...register("Andere frequentie", {})} />
+            )}
             <textarea {...register("Opmerkingen", {})} />
             <input type="checkbox" placeholder="Akkoord?" {...register("Akkoord?", {required: true})} />
 
